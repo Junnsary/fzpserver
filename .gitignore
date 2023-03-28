@@ -1,7 +1,7 @@
 node_modules/
 yarn-error.log
 yarn.lock
-public/*
-!public/uploads/images/videos/default-cover.jpg
-!public/uploads/images/avatars/default-avatar.jpg
-!public/uploads/images/articles/default-cover.jpg
+/public/*
+!/public/uploads/images/videos/default-cover.jpg
+!/public/uploads/images/avatars/default-avatar.jpg
+!/public/uploads/images/articles/default-cover.jpg
