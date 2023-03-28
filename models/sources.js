@@ -46,26 +46,30 @@ const list = async (type, tagid) => {
 
 const recommendation = async (num) => {
     const articles = await query(
-        `select * from articles a join tags t  on a.tag_id  = t.id WHERE t.type = "article" and t.category = "knowledge" order by RAND() LIMIT ${num} `
+        `select a.* from articles a join tags t  on a.tag_id  = t.id WHERE t.type = "article" and t.category = "knowledge" order by RAND() LIMIT ${num} `
     )
+
     const videos = await query(
-        `select * from videos v join tags t  on v.tag_id  = t.id WHERE t.type = "video" and t.category = "knowledge" order by RAND() LIMIT ${
+        `select v.* from videos v join tags t  on v.tag_id  = t.id WHERE t.type = "video" and t.category = "knowledge" order by RAND() LIMIT ${
             num / 5
         }`
     )
     result = articles
-    for (let v of videos) {
-        let i = Math.random() * num
-        result.splice(i, 0, v)
+    for (const temp of videos) {
+        //根据articles 的数量
+        let i = Math.random() * result.length
+        //随机插入位置
+        result.splice(i, 0, temp)
     }
-    for (let t of result) {
-        const manager = await query('select id, name from managers where id = ?', [t.manager_id])
-        const tag = await query('select * from tags where id = ?', [t.tag_id])
-        delete t.manager_id
-        delete t.tag_id
-        t.manager = manager[0]
-        t.tag = tag[0]
+    for (const temp of result) {
+        const manager = await query('select id, name from managers where id = ?', [temp.manager_id])
+        const tag = await query('select * from tags where id = ?', [temp.tag_id])
+        delete temp.manager_id
+        delete temp.tag_id
+        temp.manager = manager[0]
+        temp.tag = tag[0]
     }
+    console.log(result)
     return result
 }
 

@@ -16,6 +16,7 @@ const recommendation = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')
     const { num } = req.query
     const result = await sourcesModel.recommendation(~~num)
+    console.log(result)
     res.render('succ', {
         data: JSON.stringify(result),
     })

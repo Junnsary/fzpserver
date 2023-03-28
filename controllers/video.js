@@ -1,4 +1,5 @@
 const videoModel = require('../models/video')
+const fs = require('fs')
 
 const list = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')

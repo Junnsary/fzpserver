@@ -15,11 +15,12 @@ const list = async (tagId) => {
 }
 
 const video = async (id) => {
-    const result = (await query('select * from video where id = ?', [id]))[0]
-    const manager = await query('select id, name from manager  where id = ?', [result.manager_id])
-    delete result.manager_id
-    result.manager = manager[0]
-    return result
+    const result = await query('select * from videos where id = ?', [id])
+    const video = result[0]
+    const manager = await query('select id, name from managers  where id = ?', [video.manager_id])
+    delete video.manager_id
+    video.manager = manager[0]
+    return video
 }
 
 module.exports = {
