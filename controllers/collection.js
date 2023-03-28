@@ -1,0 +1,41 @@
+const collectionModel = require('../models/collection')
+
+const list = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const { userid, type } = req.query
+    // console.log(userid, type)
+    // console.log(userid, collecttype)
+    const result = await collectionModel.list(userid, type)
+    console.log(result)
+    // console.log(req.query.articletype)
+    res.render('succ', {
+        data: JSON.stringify(result),
+    })
+}
+
+const add = async (req, res, next) => {
+    const { userid, sourceid, type } = req.body
+
+    const result = await collectionModel.add(userid, sourceid, type)
+
+    console.log(result)
+
+    if (result.affectedRows) {
+        res.render('succ', {
+            data: JSON.stringify({
+                message: '添加收藏成功。',
+            }),
+        })
+    } else {
+        res.render('fail', {
+            data: JSON.stringify({
+                message: '添加收藏失败。',
+            }),
+        })
+    }
+}
+
+module.exports = {
+    list,
+    add,
+}
