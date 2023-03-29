@@ -35,7 +35,21 @@ const add = async (req, res, next) => {
     }
 }
 
+const isCollect = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const { sourceid, tagid, userid } = req.query
+    // console.log(userid, type)
+    // console.log(userid, collecttype)
+    const result = await collectionModel.isCollect(sourceid, tagid, userid)
+    console.log(result)
+    // console.log(req.query.articletype)
+    res.render('succ', {
+        data: result,
+    })
+}
+
 module.exports = {
     list,
     add,
+    isCollect,
 }

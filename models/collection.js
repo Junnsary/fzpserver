@@ -33,7 +33,19 @@ const add = async (userId, sourceId, type) => {
     ])
 }
 
+const isCollect = async (sourceId, tagId, userId) => {
+    return (
+        await query(
+            'select * from collections c WHERE c.source_id = ? and c.tag_id = ? and user_id = ?',
+            [sourceId, tagId, userId]
+        )
+    ).length > 0
+        ? true
+        : false
+}
+
 module.exports = {
     list,
     add,
+    isCollect,
 }
