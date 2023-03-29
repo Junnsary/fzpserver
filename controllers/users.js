@@ -33,7 +33,7 @@ const signup = async (req, res, next) => {
 const login = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')
     const { id, passwd } = req.body
-    // console.log(id, passwd)
+    console.log(id, passwd)
     const result = await usersModel.login(id, passwd)
     try {
         console.log(result)

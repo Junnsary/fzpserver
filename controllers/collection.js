@@ -14,9 +14,10 @@ const list = async (req, res, next) => {
 }
 
 const add = async (req, res, next) => {
-    const { userid, sourceid, type } = req.body
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const { userid, sourceid, tagid } = req.body
 
-    const result = await collectionModel.add(userid, sourceid, type)
+    const result = await collectionModel.add(sourceid, tagid, userid)
 
     console.log(result)
 
@@ -30,6 +31,27 @@ const add = async (req, res, next) => {
         res.render('fail', {
             data: JSON.stringify({
                 message: '添加收藏失败。',
+            }),
+        })
+    }
+}
+
+const cancel = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const { userid, sourceid, tagid } = req.body
+    console.log(req.body)
+    const result = await collectionModel.cancel(sourceid, tagid, userid)
+    console.log(result)
+    if (result.affectedRows) {
+        res.render('succ', {
+            data: JSON.stringify({
+                message: '取消收藏成功。',
+            }),
+        })
+    } else {
+        res.render('fail', {
+            data: JSON.stringify({
+                message: '取消收藏失败。',
             }),
         })
     }
@@ -52,4 +74,5 @@ module.exports = {
     list,
     add,
     isCollect,
+    cancel,
 }

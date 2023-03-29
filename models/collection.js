@@ -25,12 +25,19 @@ const list = async (userid, type) => {
     return result
 }
 
-const add = async (userId, sourceId, type) => {
-    return await query('insert into collection(user_id, source_id, type) values(?, ?, ?)', [
-        userId,
+const add = async (sourceId, tagId, userId) => {
+    return await query('insert into collections(source_id, tag_id, user_id) values(?, ?, ?)', [
         sourceId,
-        type,
+        tagId,
+        userId,
     ])
+}
+
+const cancel = async (sourceId, tagId, userId) => {
+    return await query(
+        'DELETE FROM collections WHERE source_id  = ? and tag_id  = ? AND user_id  = ?',
+        [sourceId, tagId, userId]
+    )
 }
 
 const isCollect = async (sourceId, tagId, userId) => {
@@ -48,4 +55,5 @@ module.exports = {
     list,
     add,
     isCollect,
+    cancel,
 }
