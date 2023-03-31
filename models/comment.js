@@ -15,6 +15,14 @@ const list = async (sourceId, tagId) => {
     return result
 }
 
+const add = async (sourceId, tagId, userId, content) => {
+    return await query(
+        'insert into comments(source_id, tag_id, user_id, content) values(?, ?, ?, ?)',
+        [sourceId, tagId, userId, content]
+    )
+}
+
 module.exports = {
     list,
+    add,
 }
