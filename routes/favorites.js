@@ -1,5 +1,5 @@
 var express = require('express')
-const { list, add, isCollect, cancel } = require('../controllers/collection')
+const { list, add, isFavorites, cancel } = require('../controllers/favorites')
 var router = express.Router()
 
 //获取收藏列表
@@ -12,6 +12,6 @@ router.post('/', add)
 router.post('/cancel', cancel)
 
 //查看用户否有收藏
-router.get('/iscollect', isCollect)
+router.get('/isfavorites', isFavorites)
 
 module.exports = router

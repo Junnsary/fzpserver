@@ -1,11 +1,11 @@
-const collection = require('../models/collection')
+const favorites = require('../models/favorites')
 
 const cancel = async () => {
-    console.log(await collection.cancel(1, 16, 'koussa1'))
+    console.log(await favorites.cancel(1, 16, 'koussa1'))
 }
 
 const add = async () => {
-    console.log(await collection.add(1, 16, 'koussa1'))
+    console.log(await favorites.add(1, 16, 'koussa1'))
 }
 
 // cancel()
