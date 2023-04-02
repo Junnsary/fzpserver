@@ -9,14 +9,8 @@ yarn.lock
 !/public/uploads/images
 
 /public/uploads/images/*
-!/public/uploads/images/videos
-!/public/uploads/images/avatars
-!/public/uploads/images/articles
+!/public/uploads/images/article-cover.jpg
+!/public/uploads/images/default-avatar.jpg
+!/public/uploads/images/video-cover.jpg
 
-/public/uploads/images/articles/*
-!/public/uploads/images/articles/article-cover.jpg
-/public/uploads/images/videos/*
-!/public/uploads/images/videos/video-cover.jpg
-/public/uploads/images/avatars/*
-!/public/uploads/images/avatars/default-avatar.jpg
 
