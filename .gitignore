@@ -14,9 +14,9 @@ yarn.lock
 !/public/uploads/images/articles
 
 /public/uploads/images/articles/*
-!/public/uploads/images/articles/default-cover.jpg
+!/public/uploads/images/articles/article-cover.jpg
 /public/uploads/images/videos/*
-!/public/uploads/images/videos/default-cover.jpg
+!/public/uploads/images/videos/video-cover.jpg
 /public/uploads/images/avatars/*
 !/public/uploads/images/avatars/default-avatar.jpg
 
