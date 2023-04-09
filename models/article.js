@@ -30,8 +30,55 @@ const findArticle = async (id) => {
     return await query('select * from articles where id = ?', [id])
 }
 
+const allCase = async () => {
+    /**
+     * 查询 case下的数据
+     * {
+     *      tag：tag
+     *      data： [
+     *          {},{}
+     *      ]
+     * }
+     */
+    const result = [
+        {
+            tag: {
+                id: -1,
+                name: '推荐',
+                type: 'article',
+                category: 'case',
+            },
+            data: [],
+        },
+    ]
+    const tagList = await query('select * from tags where type = ? and category = ?', [
+        'article',
+        'case',
+    ])
+    let sum = []
+    for (let tag of tagList) {
+        const data = await query('select * from articles where tag_id = ?', [tag.id])
+        result.push({
+            tag,
+            data,
+        })
+        sum = sum.concat(data)
+    }
+    result[0].data = sum
+    return result
+}
+
+const postArticle = async (title, content, managerid, tagid, cover) => {
+    return await query(
+        'insert into articles(title, content, manager_id, tag_id, cover) values(?, ?, ?, ?, ?)',
+        [title, content, managerid, tagid, cover]
+    )
+}
+
 module.exports = {
     list,
     article,
     findArticle,
+    allCase,
+    postArticle,
 }

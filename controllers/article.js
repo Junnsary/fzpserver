@@ -1,5 +1,7 @@
+const { render } = require('ejs')
 const articleModel = require('../models/article')
 const monent = require('moment')
+const url = require('url')
 /* 
 接受type， tag
 type的是文章的类型（知识，案件）
@@ -61,7 +63,55 @@ const article = async (req, res, next) => {
     }
 }
 
+const allCase = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const result = await articleModel.allCase()
+    res.render('succ', {
+        data: JSON.stringify(result),
+    })
+}
+
+const articlePicture = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const filePath = req.file.path
+    const fileSavePath = filePath.substring(filePath.indexOf('/uploads'))
+    const pictureUrl = `${req.protocol}://${req.get('host')}${fileSavePath}`
+    console.log(pictureUrl)
+    res.render('article-picture-succ', {
+        picurl: JSON.stringify(pictureUrl),
+    })
+}
+
+const postArticle = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const { title, content, managerid, tagid } = req.body
+    const result = await articleModel.postArticle(
+        title,
+        content,
+        managerid,
+        tagid,
+        req.savefilename
+    )
+    // console.log(result)
+    if (result.affectedRows > 0) {
+        res.render('succ', {
+            data: JSON.stringify({
+                message: '发布成功！',
+            }),
+        })
+    } else {
+        res.render('fail', {
+            data: JSON.stringify({
+                message: '发布失败！',
+            }),
+        })
+    }
+}
+
 module.exports = {
     list,
     article,
+    allCase,
+    articlePicture,
+    postArticle,
 }
