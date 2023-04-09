@@ -23,7 +23,15 @@ const video = async (id) => {
     return video
 }
 
+const postVideo = async (title, tagId, managerId, video, cover) => {
+    return await query(
+        'insert into videos(title, tag_id, manager_id, file_name, cover) values(?, ?, ?, ?, ?)',
+        [title, tagId, managerId, video, cover]
+    )
+}
+
 module.exports = {
     list,
     video,
+    postVideo,
 }

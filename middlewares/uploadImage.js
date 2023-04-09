@@ -22,8 +22,8 @@ const storage = multer.diskStorage({
 
 //设置文件大小和文件数量
 const limits = {
-    fileSize: 100000,
-    files: 1,
+    fileSize: 1000000,
+    files: 2,
 }
 
 //设置文件类型
@@ -42,10 +42,10 @@ function fileFilter(req, file, cb) {
     }
 }
 
-const uploadMiddleware = (saveFileName) => {
+const uploadImagerMiddleware = (saveFileName) => {
     const upload = multer({
         storage,
-        // limits,
+        limits,
         // fileFilter,
     }).single(saveFileName)
 
@@ -84,4 +84,4 @@ const uploadMiddleware = (saveFileName) => {
     }
 }
 
-module.exports = uploadMiddleware
+module.exports = uploadImagerMiddleware

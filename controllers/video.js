@@ -28,7 +28,29 @@ const video = async (req, res, next) => {
     })
 }
 
+const postVideo = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const { title, tagid, managerid } = req.body
+    const videoName = req.VideoName
+    const cover = req.coverImageName
+    const result = await videoModel.postVideo(title, tagid, managerid, videoName, cover)
+    if (result.affectedRows > 0) {
+        res.render('succ', {
+            data: JSON.stringify({
+                message: '发布成功！',
+            }),
+        })
+    } else {
+        res.render('fail', {
+            data: JSON.stringify({
+                message: '发布失败！',
+            }),
+        })
+    }
+}
+
 module.exports = {
     list,
     video,
+    postVideo,
 }

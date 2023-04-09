@@ -2,7 +2,7 @@ var express = require('express')
 var { list, article, allCase, articlePicture, postArticle } = require('../controllers/article')
 var router = express.Router()
 const path = require('path')
-const uploadPictureMiddle = require('../middlewares/uploads')
+const uploadImagerMiddleware = require('../middlewares/uploadImage')
 // const multer = require('multer')
 // const upload = multer({ dest: path.resolve(__dirname, '../public/uploads/images/') })
 
@@ -16,9 +16,9 @@ router.get('/allcase', allCase)
 router.get('/:id', article)
 
 //上面文章中的图片
-router.post('/articlepicture', uploadPictureMiddle('articlepicture'), articlePicture)
+router.post('/articlepicture', uploadImagerMiddleware('articlepicture'), articlePicture)
 
 //发布文章
-router.post('/postarticle', uploadPictureMiddle('cover'), postArticle)
+router.post('/postarticle', uploadImagerMiddleware('cover'), postArticle)
 
 module.exports = router
