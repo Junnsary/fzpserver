@@ -111,10 +111,33 @@ const postArticle = async (req, res, next) => {
 const allArticle = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')
     // res.send('ok.')
-    const result = await articleModel.allArticle()
+    const { pagesize, currentpage } = req.query
+    console.log(pagesize, currentpage)
+    const result = await articleModel.allArticle(~~pagesize, ~~currentpage)
     res.render('succ', {
         data: JSON.stringify(result),
     })
+}
+
+const delArticle = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const { id } = req.params
+    const result = await articleModel.delArticle(id)
+
+    if (result.affectedRows > 0) {
+        res.render('succ', {
+            data: JSON.stringify({
+                message: '删除成功！',
+            }),
+        })
+    } else {
+        res.render('fail', {
+            data: JSON.stringify({
+                message: '删除失败！',
+            }),
+        })
+    }
+    articleModel.delArticle()
 }
 
 module.exports = {
@@ -124,4 +147,5 @@ module.exports = {
     articlePicture,
     postArticle,
     allArticle,
+    delArticle,
 }

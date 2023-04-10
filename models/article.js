@@ -76,14 +76,25 @@ const postArticle = async (title, content, managerid, tagid, cover) => {
     )
 }
 
-const allArticle = async () => {
-    const result = await query('select * from articles')
+const allArticle = async (pagesize, currentpage) => {
+    //select * from articles a  LIMIT 0,10;
+    //select count(*) from articles a  LIMIT 0,10;
+    const result = await query('select * from articles a  LIMIT ? offset ?', [
+        pagesize,
+        pagesize * (currentpage - 1),
+    ])
+    const total = await query('select count(*) as total from articles ')
     for (let article of result) {
         const tag = await getTag(article.tag_id)
         delete article.tag_id
         article.tag = tag
     }
-    return result
+    console.log(result.length)
+    return { articleList: result, total: total[0].total }
+}
+
+const delArticle = async (id) => {
+    return await query('delete from articles where id = ?', [id])
 }
 
 module.exports = {
@@ -93,4 +104,5 @@ module.exports = {
     allCase,
     postArticle,
     allArticle,
+    delArticle,
 }

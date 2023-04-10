@@ -6,6 +6,7 @@ var {
     articlePicture,
     postArticle,
     allArticle,
+    delArticle,
 } = require('../controllers/article')
 var router = express.Router()
 const path = require('path')
@@ -29,6 +30,8 @@ router.post('/articlepicture', uploadImagerMiddleware('articlepicture'), article
 router.post('/postarticle', uploadImagerMiddleware('cover'), postArticle)
 
 //所有文章
-router.get('/allarticle', allArticle)
+router.get('/all', allArticle)
+
+router.delete('/:id', delArticle)
 
 module.exports = router
