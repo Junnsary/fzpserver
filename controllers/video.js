@@ -49,8 +49,20 @@ const postVideo = async (req, res, next) => {
     }
 }
 
+const allVideo = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    // res.send('ok.')
+    const { pagesize, currentpage } = req.query
+    console.log(pagesize, currentpage)
+    const result = await videoModel.allVideo(~~pagesize, ~~currentpage)
+    res.render('succ', {
+        data: JSON.stringify(result),
+    })
+}
+
 module.exports = {
     list,
     video,
     postVideo,
+    allVideo,
 }

@@ -1,4 +1,5 @@
 const query = require('../utils/mysqldb')
+const { getTag } = require('../utils/sql-select')
 
 const list = async (tagId) => {
     const result = await query('select * from videos where tag_id = ?', [tagId])
@@ -30,8 +31,26 @@ const postVideo = async (title, tagId, managerId, video, cover) => {
     )
 }
 
+const allVideo = async (pageSize, currentPage) => {
+    //select * from articles a  LIMIT 0,10;
+    //select count(*) from articles a  LIMIT 0,10;
+    const result = await query('select * from videos a  LIMIT ? offset ?', [
+        pageSize,
+        pageSize * (currentPage - 1),
+    ])
+    const total = await query('select count(*) as total from videos ')
+    for (let article of result) {
+        const tag = await getTag(article.tag_id)
+        delete article.tag_id
+        article.tag = tag
+    }
+    console.log(result.length)
+    return { articleList: result, total: total[0].total }
+}
+
 module.exports = {
     list,
     video,
     postVideo,
+    allVideo,
 }

@@ -94,7 +94,10 @@ const allArticle = async (pagesize, currentpage) => {
 }
 
 const delArticle = async (id) => {
-    return await query('delete from articles where id = ?', [id])
+    //不能真正地删除，
+    const article = await query('select * from articles where id = ?', [id])
+    const result = await query('delete from articles where id = ?', [id])
+    return { deleResult: result, coverName: article[0] }
 }
 
 module.exports = {

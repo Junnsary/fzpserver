@@ -2,6 +2,9 @@ const { render } = require('ejs')
 const articleModel = require('../models/article')
 const monent = require('moment')
 const url = require('url')
+const { deleteFile } = require('../utils/file')
+const path = require('path')
+const fs = require('node:fs/promises')
 /* 
 接受type， tag
 type的是文章的类型（知识，案件）
@@ -123,8 +126,8 @@ const delArticle = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')
     const { id } = req.params
     const result = await articleModel.delArticle(id)
-
-    if (result.affectedRows > 0) {
+    deleteFile(path.resolve(__dirname, `../public/uploads/images/${result.coverName.cover}`))
+    if (result.deleResult.affectedRows > 0) {
         res.render('succ', {
             data: JSON.stringify({
                 message: '删除成功！',
@@ -137,7 +140,6 @@ const delArticle = async (req, res, next) => {
             }),
         })
     }
-    articleModel.delArticle()
 }
 
 module.exports = {

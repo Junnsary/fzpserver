@@ -1,5 +1,5 @@
 var express = require('express')
-var { list, video, postVideo } = require('../controllers/video')
+var { list, video, postVideo, allVideo } = require('../controllers/video')
 var router = express.Router()
 const uploadImagerMiddleware = require('../middlewares/uploadImage')
 const uploadVideoMiddleware = require('../middlewares/uploadVideo')
@@ -8,7 +8,7 @@ const uploadVideoMiddleware = require('../middlewares/uploadVideo')
 router.get('/', list)
 
 //获取单个视频
-router.get('/:id', video)
+router.get('/:id(\\d+)', video)
 
 router.post(
     '/',
@@ -18,5 +18,7 @@ router.post(
     ]),
     postVideo
 )
+
+router.get('/all', allVideo)
 
 module.exports = router
