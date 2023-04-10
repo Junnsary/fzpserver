@@ -1,5 +1,6 @@
 const query = require('../utils/mysqldb')
 const moment = require('moment')
+const { getTag } = require('../utils/sql-select')
 
 const list = async (tagId) => {
     const result = await query(`select * from articles where tag_id in (${tagId})`)
@@ -75,10 +76,21 @@ const postArticle = async (title, content, managerid, tagid, cover) => {
     )
 }
 
+const allArticle = async () => {
+    const result = await query('select * from articles')
+    for (let article of result) {
+        const tag = await getTag(article.tag_id)
+        delete article.tag_id
+        article.tag = tag
+    }
+    return result
+}
+
 module.exports = {
     list,
     article,
     findArticle,
     allCase,
     postArticle,
+    allArticle,
 }

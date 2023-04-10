@@ -108,10 +108,20 @@ const postArticle = async (req, res, next) => {
     }
 }
 
+const allArticle = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    // res.send('ok.')
+    const result = await articleModel.allArticle()
+    res.render('succ', {
+        data: JSON.stringify(result),
+    })
+}
+
 module.exports = {
     list,
     article,
     allCase,
     articlePicture,
     postArticle,
+    allArticle,
 }
