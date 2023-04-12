@@ -23,8 +23,40 @@ const knowledge = async () => {
     return result
 }
 
+const list = async (category, type) => {
+    let result
+    if (category === 'all') {
+        result = await query('select * from tags')
+    } else {
+        if (type === 'all') {
+            result = await query('select * from tags where category = ?', [category])
+        } else {
+            result = await query('select * from tags where category = ? and type = ?', [
+                category,
+                type,
+            ])
+        }
+    }
+    return result
+}
+
+const add = async (category, type, name) => {
+    return await query('insert into tags(category, type, name) values(?, ?, ?)', [
+        category,
+        type,
+        name,
+    ])
+}
+
+const delTag = async (id) => {
+    return await query('delete from tags where id = ?', [id])
+}
+
 module.exports = {
     findTag,
     findCategory,
     knowledge,
+    list,
+    add,
+    delTag,
 }

@@ -11,6 +11,7 @@ var commentRouter = require('./routes/comment')
 var favoritesRouter = require('./routes/favorites')
 var sourcesRouter = require('./routes/sources')
 var tagsRouter = require('./routes/tags')
+var managerRouter = require('./routes/manager')
 
 var app = express()
 
@@ -32,6 +33,7 @@ app.use('/api/comment', commentRouter)
 app.use('/api/favorites', favoritesRouter)
 app.use('/api/sources', sourcesRouter)
 app.use('/api/tags', tagsRouter)
+app.use('/api/manager', managerRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

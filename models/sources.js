@@ -73,7 +73,24 @@ const recommendation = async (num) => {
     return result
 }
 
+const quantity = async () => {
+    /**
+     * 查询 发布的文章和视频数量
+     * 用户的数量
+     */
+    const article = (await query('select count(*) as num from articles'))[0]
+    const video = (await query('select count(*) as num from videos'))[0]
+    const user = (await query('select count(*) as num from users'))[0]
+    // console.log(articleSum)
+    return {
+        article: article.num,
+        video: video.num,
+        user: user.num,
+    }
+}
+
 module.exports = {
     list,
     recommendation,
+    quantity,
 }

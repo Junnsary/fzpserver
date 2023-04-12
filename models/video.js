@@ -48,9 +48,16 @@ const allVideo = async (pageSize, currentPage) => {
     return { articleList: result, total: total[0].total }
 }
 
+const delVideo = async (id) => {
+    const video = await query('select * from videos where id = ?', [id])
+    const result = await query('delete from videos where id = ?', [id])
+    return { deleResult: result, coverName: video[0] }
+}
+
 module.exports = {
     list,
     video,
     postVideo,
     allVideo,
+    delVideo,
 }

@@ -22,7 +22,17 @@ const recommendation = async (req, res, next) => {
     })
 }
 
+const quantity = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+
+    const result = await sourcesModel.quantity()
+    res.render('succ', {
+        data: JSON.stringify(result),
+    })
+}
+
 module.exports = {
     list,
     recommendation,
+    quantity,
 }

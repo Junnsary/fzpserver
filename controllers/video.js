@@ -1,5 +1,7 @@
 const videoModel = require('../models/video')
 const fs = require('fs')
+const { deleteFile } = require('../utils/file')
+const path = require('path')
 
 const list = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')
@@ -60,9 +62,34 @@ const allVideo = async (req, res, next) => {
     })
 }
 
+const delVideo = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const { id } = req.params
+    const result = await videoModel.delVideo(id)
+
+    //删除视频
+    deleteFile(path.resolve(__dirname, `../public/uploads/videos/${result.coverName.file_name}`))
+    //删除封面
+    deleteFile(path.resolve(__dirname, `../public/uploads/images/${result.coverName.cover}`))
+    if (result.deleResult.affectedRows > 0) {
+        res.render('succ', {
+            data: JSON.stringify({
+                message: '删除成功！',
+            }),
+        })
+    } else {
+        res.render('fail', {
+            data: JSON.stringify({
+                message: '删除失败！',
+            }),
+        })
+    }
+}
+
 module.exports = {
     list,
     video,
     postVideo,
     allVideo,
+    delVideo,
 }

@@ -1,5 +1,5 @@
 var express = require('express')
-var { list, video, postVideo, allVideo } = require('../controllers/video')
+var { list, video, postVideo, allVideo, delVideo } = require('../controllers/video')
 var router = express.Router()
 const uploadImagerMiddleware = require('../middlewares/uploadImage')
 const uploadVideoMiddleware = require('../middlewares/uploadVideo')
@@ -20,5 +20,7 @@ router.post(
 )
 
 router.get('/all', allVideo)
+
+router.delete('/:id', delVideo)
 
 module.exports = router
