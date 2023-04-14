@@ -69,7 +69,7 @@ const recommendation = async (num) => {
         temp.manager = manager[0]
         temp.tag = tag[0]
     }
-    console.log(result)
+    // console.log(result)
     return result
 }
 

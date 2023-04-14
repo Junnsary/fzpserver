@@ -17,6 +17,7 @@ const list = async (tagId) => {
 
 const video = async (id) => {
     const result = await query('select * from videos where id = ?', [id])
+    console.log(result)
     const video = result[0]
     const manager = await query('select id, name from managers  where id = ?', [video.manager_id])
     delete video.manager_id

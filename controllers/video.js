@@ -23,6 +23,7 @@ const list = async (req, res, next) => {
 const video = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')
     const { id } = req.params
+    console.log(id)
     const result = await videoModel.video(id)
     console.log(result)
     res.render('succ', {
