@@ -76,8 +76,10 @@ const allCase = async (req, res, next) => {
 
 const articlePicture = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')
-    const filePath = req.file.path
-    const fileSavePath = filePath.substring(filePath.indexOf('/uploads'))
+
+    // const filePath = req.file.path
+    // console.log(req.savefilename)
+    const fileSavePath = `/uploads/images/${req.savefilename}`
     const pictureUrl = `${req.protocol}://${req.get('host')}${fileSavePath}`
     console.log(pictureUrl)
     res.render('article-picture-succ', {

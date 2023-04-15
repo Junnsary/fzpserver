@@ -67,16 +67,6 @@ const uploadImagerMiddleware = (saveFileName) => {
             } else {
                 if (uploadFileName !== '') {
                     req.savefilename = uploadFileName
-                    /*
-                     * 删除旧的文件
-                     */
-                    // const { companyLogo_old } = req.body
-                    // // console.log(companyLogo_old)
-                    // try {
-                    //     fs.unlinkSync(path.join(__dirname, `../public/uploads/${companyLogo_old}`))
-                    // } catch (err) {
-                    //     console.log(err)
-                    // }
                 }
                 next()
             }
