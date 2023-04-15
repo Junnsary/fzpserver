@@ -79,8 +79,10 @@ const articlePicture = async (req, res, next) => {
 
     // const filePath = req.file.path
     // console.log(req.savefilename)
+    // const fileSavePath = `/uploads/images/${req.savefilename}`
     const fileSavePath = `/uploads/images/${req.savefilename}`
-    const pictureUrl = `${req.protocol}://${req.get('host')}${fileSavePath}`
+    // const pictureUrl = `${req.protocol}://${req.get('host')}${fileSavePath}`
+    const pictureUrl = `${fileSavePath}`
     console.log(pictureUrl)
     res.render('article-picture-succ', {
         picurl: JSON.stringify(pictureUrl),
