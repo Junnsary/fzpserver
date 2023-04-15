@@ -6,12 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%- title %></title>
+    <style>
+        .content {
+            width: 100%;
+        }
+
+        .content img {
+            max-width: 100%;
+        }
+    </style>
 </head>
 
 <body>
-    <h2><%- title %></h2>
+    <h3><%- title %></h3>
     <p> <%- name %>&nbsp;&nbsp;&nbsp;<span style="color: gray;"><%- createtime %></span></p>
-    <p>
+    <p class="content">
         <%- content %>
     </p>
 </body>
