@@ -14,3 +14,5 @@ yarn.lock
 !/public/uploads/images/video-cover.jpg
 
 
+!/public/uploads/videos
+/public/uploads/videos/*
