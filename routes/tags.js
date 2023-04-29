@@ -8,7 +8,7 @@ router.get('/:type/:category', category)
 //user - 单独获取学习文章和学习视频的tag（为学习界面的 单独学习文章和视频列表的所有tagid）
 router.get('/knowledge', knowledge)
 
-//admin - 管理员发布文章或者视频，获取标签信息
+//admin - 管理员查看标签信息
 router.get('/list', list)
 
 //admin - 管理添加添加标签
