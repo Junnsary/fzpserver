@@ -5,29 +5,7 @@ const url = require('url')
 const { deleteFile } = require('../utils/file')
 const path = require('path')
 const fs = require('node:fs/promises')
-/* 
-接受type， tag
-type的是文章的类型（知识，案件）
-tag的文章的标签分类
-tag如果为空，就显示该类型文章的全部
-*/
-const list = async (req, res, next) => {
-    res.header('content-type', 'application/json; charset=UTF-8')
-    const { tagid } = req.query
-    console.log(tagid)
-    try {
-        const result = await articleModel.list(tagid)
-        res.render('succ', {
-            data: JSON.stringify(result),
-        })
-    } catch (e) {
-        res.render('fail', {
-            data: JSON.stringify({
-                message: '查询文章列表失败。',
-            }),
-        })
-    }
-}
+
 
 const article = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')
@@ -64,14 +42,6 @@ const article = async (req, res, next) => {
             }),
         })
     }
-}
-
-const allCase = async (req, res, next) => {
-    res.header('content-type', 'application/json; charset=UTF-8')
-    const result = await articleModel.allCase()
-    res.render('succ', {
-        data: JSON.stringify(result),
-    })
 }
 
 const articlePicture = async (req, res, next) => {
@@ -147,9 +117,7 @@ const delArticle = async (req, res, next) => {
 }
 
 module.exports = {
-    list,
     article,
-    allCase,
     articlePicture,
     postArticle,
     allArticle,

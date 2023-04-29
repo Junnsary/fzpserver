@@ -3,22 +3,6 @@ const fs = require('fs')
 const { deleteFile } = require('../utils/file')
 const path = require('path')
 
-const list = async (req, res, next) => {
-    res.header('content-type', 'application/json; charset=UTF-8')
-    const { tagid } = req.query
-    try {
-        const result = await videoModel.list(tagid)
-        res.render('succ', {
-            data: JSON.stringify(result),
-        })
-    } catch (e) {
-        res.render('fail', {
-            data: JSON.stringify({
-                message: '查询视频列表失败。',
-            }),
-        })
-    }
-}
 
 const video = async (req, res, next) => {
     res.header('content-type', 'application/json; charset=UTF-8')
@@ -88,7 +72,6 @@ const delVideo = async (req, res, next) => {
 }
 
 module.exports = {
-    list,
     video,
     postVideo,
     allVideo,

@@ -33,8 +33,19 @@ const quantity = async (req, res, next) => {
     })
 }
 
+const search = async (req, res, next) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const {keywords} = req.query
+    console.log(keywords)
+    const result = await sourcesModel.search(keywords)
+    res.render('succ', {
+        data: JSON.stringify(result)
+    })
+}
+
 module.exports = {
     list,
     recommendation,
     quantity,
+    search
 }

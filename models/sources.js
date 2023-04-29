@@ -1,4 +1,5 @@
 const query = require('../utils/mysqldb')
+const sqlSelect = require('../utils/sql-select')
 
 const list = async (type, tagid) => {
     let result
@@ -89,8 +90,27 @@ const quantity = async () => {
     }
 }
 
+const search = async (keywords) => {
+    const articles = await query(`select * from articles where title like "%${keywords}%"`)
+    const videos = await query(`select * from videos where title like "%${keywords}%"`)
+    // console.log(articles, videos)
+    const result = [...articles, ...videos]
+
+    for (const temp of result) {
+        const manager = await sqlSelect.getManager(temp.manager_id)
+        const tag = await sqlSelect.getTag(temp.tag_id)
+        delete manager_id
+        delete tag_id
+        temp.manager = manager
+        temp.tag = tag
+    }
+
+    return result
+}
+
 module.exports = {
     list,
     recommendation,
     quantity,
+    search
 }
