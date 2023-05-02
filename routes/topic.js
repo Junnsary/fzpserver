@@ -8,4 +8,8 @@ router.get('/', topicControllers.list)
 
 router.delete('/', topicControllers.delTopic)
 
+router.get('/topictest', topicControllers.topicTest)
+
+router.get('/starttest', topicControllers.startTest)
+
 module.exports = router

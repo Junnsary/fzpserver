@@ -1,3 +1,4 @@
+const { json } = require('express')
 const topicTypeModel = require('../models/topic.js')
 
 exports.add = async (req, res) => {
@@ -45,4 +46,21 @@ exports.delTopic = async (req, res) => {
             data: JSON.stringify(''),
         })
     }
+}
+
+exports.topicTest = async (req, res) => {
+    res.header('content-type', 'text/html; charset=UTF-8')
+    const { userid } = req.query
+    console.log(userid)
+    res.render('topic-test', {
+        userid: JSON.stringify(userid),
+    })
+}
+
+exports.startTest = async (req, res) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const result = await topicTypeModel.startTest()
+    res.render('succ', {
+        data: JSON.stringify(result),
+    })
 }

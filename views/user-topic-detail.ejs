@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Import style -->
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+    <!-- Import Vue 3 -->
+    <script src="//unpkg.com/vue@3"></script>
+    <!-- Import component library -->
+    <script src="//unpkg.com/element-plus"></script>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+
+        .container2 {
+            /* display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; */
+        }
+
+        .box {
+            width: 80%;
+            height: 60%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .btn-test {
+            flex-grow: 0;
+            height: 20%;
+            text-align: center;
+        }
+
+        .text {
+            flex-grow: 1;
+            text-indent: 2em;
+        }
+
+        .text p {
+            margin: 4px 0 0 0;
+
+        }
+
+        .btn-exit {
+            width: 100%;
+            text-align: right;
+            margin-top: 5px;
+            padding-right: 20px;
+        }
+
+        .topic-box {
+            /* margin-top: 10px;
+            width: 90%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            padding: 5px; */
+            margin-top: 10px;
+            width: 90vw;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+
+        }
+
+        .row {
+            margin-top: 20px;
+        }
+
+        .rg {
+            width: 100%;
+        }
+
+        .topictitle {
+            font-size: 20sp;
+            font-weight: bold;
+            padding: 10px 0 10px 0;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+
+        }
+
+        .topic-solution {
+            margin-top: 20px;
+        }
+
+        .isright {
+            color: #fff;
+            background-color: rgb(81, 139, 23);
+        }
+
+        .iserror {
+            color: #fff;
+            background-color: rgb(148, 53, 53);
+        }
+
+        .solution-style {
+            padding: 10px;
+        }
+        .accurate{
+            color: rgb(81, 139, 23);
+        }
+
+        .other-info  {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container2">
+
+            <el-row class="row">
+                <el-col :span="24">
+                    <div style="text-align: center; font-size: 30px; font-weight: bold;">自测结果</div>
+                </el-col>
+            </el-row>
+
+            <el-row class="row">
+                <el-col :span="24">
+                    <span style="font-size: 26px;">分数：{{userTopic.score}}</span>
+                    
+                </el-col>
+            </el-row>
+            <el-row class="row">
+                <el-col class="other-info" :span="24">
+                    题目数量：{{userTopic.topic_sum}}
+                </el-col>
+            </el-row>
+            <el-row  class="other-info" class="row">
+                <el-col :span="24">
+                    正确题数：{{userTopic.topic_right}}
+                </el-col>
+            </el-row>
+            <el-row  class="other-info" class="row">
+                <el-col :span="24">
+                    错误题数：{{userTopic.topic_error}}
+                </el-col>
+            </el-row>
+
+            <el-row  class="other-info" class="row">
+                <el-col :span="24">
+                    自测时间：{{userTopic.created_at}}
+                </el-col>
+            </el-row>
+
+            <el-row class="row">
+                <el-col :span="24">
+                    <div v-if="userTopic.score === 100">
+                        <span style="color:rgb(81, 139, 23); font-size: 20px;">{{userTopic.suggestion}}</span>
+                    </div>
+                    <div v-else>
+                        <span style="font-size: 18px; color: red;"> 根据您的错误的题目，建议您可以学习以下的文章和视频或者了解相关的案例:</span>
+                        <ol>
+                            <li v-for="item in userTopic.suggestion">{{item}}</li>
+                        </ol>
+                    </div>
+                </el-col>
+            </el-row>
+
+            <el-row class="row">
+                <el-col :span="24">
+                    以下是您的答题情况
+                    <hr>
+                </el-col>
+            </el-row>
+
+
+
+
+            <el-row v-for="(temp, index) in userChoose" class="row">
+                <el-col :span="24">
+                    <div class="topic-box">
+                        <div :class="{topictitle:true, isright:temp.choose_right,iserror:!temp.choose_right}">
+                            <span v-if="temp.choose_right">&nbsp;(正确)</span>
+                            <span v-else>&nbsp;(错误)</span>
+                            {{index + 1}}. {{temp.topic.topicInfo.title}}
+                        </div>
+
+                        <el-row class="solution-style" v-for="(solution, si) in temp.topic.solutions">
+                            <el-col :span="24">
+                                <!-- <span v-if="temp.choose_right">(正确答案)</span> -->
+                                <span v-if="!temp.choose_right">
+                                    <span  v-if="temp.choose === solution.id" style="font-size: 12px; color: rgb(148, 53, 53);;">
+                                        (你的答案)
+                                    </span>
+                                </span>
+                                <span >
+                                    <span  style="font-size: 12px; color: rgb(81, 139, 23);;" v-if="solution.accurate">(正确答案)</span>
+                                    &nbsp;
+                                    <span style="font-size: 16px;">{{String.fromCharCode(si + ('A').charCodeAt(0))}}.
+                                        {{solution.content}}</span>
+                                </span>
+                                
+                            </el-col>
+                        </el-row>
+                        <!-- <el-row>
+                            <el-radio-group style="display: flex; flex-direction: column;" v-model="temp.topic.choose"
+                                class="ml-24">
+                                <el-row v-for="(solution, si) in temptopic.solutions" style="margin-top: 15px;">
+                                    <el-radio style="white-space: normal;" :label="solution.id" size="large">
+                                        {{String.fromCharCode(si + ('A').charCodeAt(0))}}. {{solution.content}}
+                                    </el-radio>
+                                </el-row>
+                            </el-radio-group>
+                        </el-row> -->
+                    </div>
+                </el-col>
+            </el-row>
+
+            <!-- <el-row class="row" style="margin-bottom: 20px;">
+                <el-col style="text-align: center;" :span="24">
+                    <div>
+                        <el-button @click="done" type="success">提交</el-button>
+                        <el-button @click="returnStart" type="success">返回</el-button>
+                    </div>
+                </el-col>
+            </el-row> -->
+            <el-row class="row" style="margin-bottom: 20px;">
+
+            </el-row>
+
+        </div>
+        <script>
+            const { ElMessage } = ElementPlus
+            const { createApp } = Vue
+            const app = createApp({
+                data() {
+                    return {
+                        userTopic: {
+                            id: 18,
+                            user_id: "",
+                            created_at: "",
+                            score: 0,
+                            suggestion: "",
+                            topic_right: 0,
+                            topic_error: 0,
+                            topic_sum: 0
+                        },
+                        userChoose: []
+                    }
+                },
+                mounted() {
+                    fetch('/api/usertopic/testresult?usertopicid=' + <%- usertopicid %>)
+                        .then(response => response.json())
+                        .then(body => {
+                            //在这里做一些处理
+                            console.log(body.data)
+                            const ut = body.data.userTopic
+                            const uc = body.data.userChoose
+
+                            if (ut.score !== 100) {
+                                ut.suggestion = ut.suggestion.split("|")
+                                ut.suggestion.pop()
+                            }
+                            ut.created_at = this.formatDate(new Date(ut.created_at), "yyyy-MM-dd hh:mm")
+                            console.log(ut.suggestion)
+                            this.userTopic = ut
+                            this.userChoose = uc
+                        })
+                },
+                methods: {
+                    formatDate(date, format) {
+                        const map = {
+                            'M': date.getMonth() + 1, // 月份
+                            'd': date.getDate(), // 日
+                            'h': date.getHours(), // 小时
+                            'm': date.getMinutes(), // 分钟
+                            's': date.getSeconds(), // 秒
+                            'q': Math.floor((date.getMonth() + 3) / 3), // 季度
+                            'S': date.getMilliseconds() // 毫秒
+                        };
+                        format = format.replace(/([yMdhmsqS])+/g, (all, t) => {
+                            let v = map[t];
+                            if (v !== undefined) {
+                                if (all.length > 1) {
+                                    v = '0' + v;
+                                    v = v.substr(v.length - 2);
+                                }
+                                return v;
+                            } else if (t === 'y') {
+                                return (date.getFullYear() + '').substr(4 - all.length);
+                            }
+                            return all;
+                        });
+                        return format;
+                    }
+                }
+            })
+            app.use(ElementPlus)
+            app.mount('#app')
+        </script>
+</body>
+
+</html>

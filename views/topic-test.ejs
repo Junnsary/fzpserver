@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Import style -->
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+    <!-- Import Vue 3 -->
+    <script src="//unpkg.com/vue@3"></script>
+    <!-- Import component library -->
+    <script src="//unpkg.com/element-plus"></script>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+
+        .container2 {
+            /* display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; */
+        }
+
+        .box {
+            width: 80%;
+            height: 60%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .btn-test {
+            flex-grow: 0;
+            height: 20%;
+            text-align: center;
+        }
+
+        .text {
+            flex-grow: 1;
+            text-indent: 2em;
+        }
+
+        .text p {
+            margin: 4px 0 0 0;
+
+        }
+
+        .btn-exit {
+            width: 100%;
+            text-align: right;
+            margin-top: 5px;
+            padding-right: 20px;
+        }
+
+        .topic-box {
+            /* margin-top: 10px;
+            width: 90%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            padding: 5px; */
+            margin-top: 10px;
+            width: 90vw;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            box-sizing: border-box;
+
+        }
+
+        .row {
+            margin-top: 25px;
+        }
+
+        .rg {
+            width: 100%;
+        }
+
+        .topic-title {
+            font-size: 18sp;
+            font-weight: bold;
+        }
+
+        .topic-solution {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- <div v-if="porcess === 1" class="container">
+            <div class="box">
+                <div class="text">
+                    <p>自测防诈骗知识的题目的主要目的是帮助您了解自己的防诈骗能力和水平。</p>
+                    <p>这样，您就可以确定哪些方面需要进一步加强，以提高您在遇到诈骗尝试时做出正确决策的能力。</p>
+                    <p>此外，通过检测防诈骗知识的题目，您还可以更好地了解当前诈骗手段的特点和模式。这将帮助您在未来更容易地识别和规避潜在的诈骗行为。</p>
+                </div>
+                <div class="btn-test">
+                    <el-button @click="start" type="success">开始自测</el-button>
+                </div>
+            </div>
+        </div> -->
+
+        <div v-if="porcess === 2" class="container2">
+            <el-row class="row">
+                <el-col :span="24">
+                    <div style="padding-left: 10px;">以下是题库随机的10道题目（共100分，每道题10分），请全部做完并且提交。</div>
+                </el-col>
+            </el-row>
+
+            <el-row v-for="(temp, index) in topics" class="row">
+                <el-col :span="24">
+                    <div class="topic-box">
+                        <div class="topic-title">{{index + 1}}. {{temp.topic.title}}</div>
+                        <el-row>
+                            <el-radio-group style="display: flex; flex-direction: column;" v-model="temp.topic.choose"
+                                class="ml-24">
+                                <el-row v-for="(solution, si) in temp.solutions" style="margin-top: 15px;">
+                                    <el-radio style="white-space: normal;" :label="solution.id" size="large">
+                                        {{String.fromCharCode(si + ('A').charCodeAt(0))}}. {{solution.content}}
+                                    </el-radio>
+                                </el-row>
+                            </el-radio-group>
+                        </el-row>
+                    </div>
+                </el-col>
+            </el-row>
+            <!-- <el-row v-for="temp in topic" class="row">
+                <el-col :span="24">
+                    <div class="topic-box">
+                        <div class="topic-title">1. 如何确认一个电话号码是否是真实的公检法/银行/客服电话？</div>
+                        <el-row>
+                            <el-radio-group style="display: flex; flex-direction: column;" v-model="radio1"
+                                class="ml-24">
+                                <el-row style="margin-top: 15px;">
+                                    <el-radio style="white-space: normal;" label="1" size="large">
+                                        A.可以通过拨打官方客服电话或者在官方网站上查询获得真实公检法/银行/客服电话。
+                                    </el-radio>
+                                </el-row>
+                                <el-row style="margin-top: 15px;">
+                                    <el-radio style="white-space: normal;" label="2" size="large">
+                                        B.根据电话号码区号或者前缀来判断是否真实，或者直接给陌生人提供个人信息。</el-radio>
+                                </el-row>
+                            </el-radio-group>
+                        </el-row>
+                    </div>
+                </el-col>
+            </el-row> -->
+
+            <el-row class="row" style="margin-bottom: 20px;">
+                <el-col style="text-align: center;" :span="24">
+                    <div>
+                        <el-button @click="done" color="#2571E6">提交</el-button>
+                        <el-button @click="returnStart"  color="#2571E6">返回</el-button>
+                    </div>
+                </el-col>
+            </el-row>
+        </div>
+        <script>
+            const { ElMessage } = ElementPlus
+            const { createApp } = Vue
+            const app = createApp({
+                data() {
+                    return {
+                        message: 'Hello Vue!',
+                        porcess: 2,
+                        radio1: '',
+                        topics: [],
+                        userid:  <%- userid %>
+                    }
+                },
+                created: function () {
+                    this.$watch('topics', function (newVal, oldVal) {
+                        console.log('items changed:', newVal)
+                    }, { deep: true })
+                },
+                methods: {
+                    returnStart() {
+                        this.porcess = 1
+                    },
+                    done() {
+                        let vaild = false
+                        this.topics.forEach((v) => {
+                            if (v.topic.choose === 0) {
+                                vaild = true
+                            }
+                        })
+                        if (vaild) {
+                            ElMessage({
+                                message: '请完成后再提交',
+                                type: 'warning',
+                            })
+                        } else {
+                            /**
+                             * 开始提交
+                             * */
+                            const url = '/api/usertopic/';
+                            fetch(url, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ topics: this.topics, userid: this.userid })
+                            })
+                            .then(response => response.json())
+                            .then(body => {
+                                //得到了提交上去的记录的id号，再用这个查询就可以了
+                                console.log(body.data);
+                                window.location = ('/api/usertopic/detail?usertopicid='+body.data)
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        }
+                    },
+                    start() {
+                        this.porcess = 2
+                    },
+                    getTopic() {
+                        fetch('/api/topic/starttest')
+                            .then(response => response.json())
+                            .then(body => {
+                                const getData = body.data
+                                getData.forEach((v, i) => {
+                                    v.topic.choose = 0
+                                });
+                                this.topics = [...getData]
+                                console.log(this.topics)
+                            })
+                            .catch(error => console.error(error));
+                    }
+                },
+                mounted() {
+                    this.getTopic()
+                },
+            })
+            app.use(ElementPlus)
+            app.mount('#app')
+        </script>
+</body>
+
+</html>

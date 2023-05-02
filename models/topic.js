@@ -58,3 +58,27 @@ exports.delTopic = async (topicid) => {
         return false
     }
 }
+
+exports.startTest = async () => {
+    try {
+        const result = []
+        const topics = await query(
+            'select * from topics where status="normal" order by rand() limit 10'
+        )
+        for (const t of topics) {
+            const topic_type = await query('select * from topic_type where id = ?', [
+                t.topic_type_id,
+            ])
+            delete t.topic_type_id
+            t.topic_type = topic_type[0]
+            const solutions = await query('select * from solutions where topic_id = ?', [t.id])
+            result.push({
+                topic: t,
+                solutions,
+            })
+        }
+        return result
+    } catch (e) {
+        return false
+    }
+}

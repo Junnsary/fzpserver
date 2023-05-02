@@ -16,6 +16,7 @@ var questionRouter = require('./routes/question')
 var answerRouter = require('./routes/answer')
 var topicTypeRouter = require('./routes/topic_type')
 var topicRouter = require('./routes/topic')
+var userTopicRouter = require('./routes/user_topic')
 
 var app = express()
 
@@ -42,6 +43,7 @@ app.use('/api/question', questionRouter)
 app.use('/api/answer', answerRouter)
 app.use('/api/topictype', topicTypeRouter)
 app.use('/api/topic', topicRouter)
+app.use('/api/usertopic', userTopicRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
