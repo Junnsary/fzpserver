@@ -1,22 +1,22 @@
 const mysql = require('mysql2')
 
-const pool = mysql.createPool({
-    host: '47.120.37.7',
-    port: '3306',
-    user: 'hhrx',
-    password: 'hhrx',
-    database: 'fzpdb',
-    multipleStatements: true,
-})
-
 // const pool = mysql.createPool({
-//     host: '127.0.0.1',
+//     host: '47.120.37.7',
 //     port: '3306',
 //     user: 'hhrx',
-//     password: 'xhr',
+//     password: 'hhrx',
 //     database: 'fzpdb',
 //     multipleStatements: true,
 // })
+
+const pool = mysql.createPool({
+    host: '127.0.0.1',
+    port: '3306',
+    user: 'hhrx',
+    password: 'xhr',
+    database: 'fzpdb',
+    multipleStatements: true,
+})
 
 const query = (sql, other = []) => {
     return new Promise((resolve, reject) => {

@@ -9,11 +9,13 @@ exports.add = async (title, type, solution) => {
         ])
         // console.log(topic)
         const jsonSolution = JSON.parse(solution)
+        console.log(jsonSolution)
         jsonSolution.forEach(async (v) => {
-            await query('insert into solutions(content, accurate, topic_id) values(?,?,?)', [
+            await query('insert into solutions(content, accurate, topic_id, letter_num) values(?,?,?,?)', [
                 v.content,
                 v.accurate,
                 topic.insertId,
+                v.letter
             ])
         })
         return true

@@ -133,7 +133,7 @@
                                 class="ml-24">
                                 <el-row v-for="(solution, si) in temp.solutions" style="margin-top: 15px;">
                                     <el-radio style="white-space: normal;" :label="solution.id" size="large">
-                                        {{String.fromCharCode(si + ('A').charCodeAt(0))}}. {{solution.content}}
+                                        {{solution.letter_num}}. {{solution.content}}
                                     </el-radio>
                                 </el-row>
                             </el-radio-group>
