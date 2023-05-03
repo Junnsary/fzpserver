@@ -124,7 +124,21 @@
                 </el-col>
             </el-row>
 
-            <el-row v-for="(temp, index) in topics" class="row">
+            <el-row  v-for="(temp, index) in topics" class="row">
+                <el-col :span="24">
+                    <div class="topic-box">
+                        <div class="topic-title">{{index + 1}}. {{temp.topic.title}}</div>
+                        <el-radio-group  style="margin-top:25px;display: flex; flex-direction: column; align-items: start;"  v-model="temp.topic.choose" >
+                                <el-radio style="color: black;white-space: normal; align-items:center; margin: 10px 0 10px 0; flex-grow: 1;" wrap v-for="(solution, si) in temp.solutions" :label="solution.id" >
+                                    {{solution.letter_num}}. {{solution.content}}
+                                </el-radio>
+                        </el-radio-group>
+
+                    </div>
+                </el-col>
+            </el-row>
+
+            <!-- <el-row v-for="(temp, index) in topics" class="row">
                 <el-col :span="24">
                     <div class="topic-box">
                         <div class="topic-title">{{index + 1}}. {{temp.topic.title}}</div>
@@ -140,7 +154,7 @@
                         </el-row>
                     </div>
                 </el-col>
-            </el-row>
+            </el-row> -->
             <!-- <el-row v-for="temp in topic" class="row">
                 <el-col :span="24">
                     <div class="topic-box">
