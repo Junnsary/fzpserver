@@ -1,3 +1,4 @@
+const { name } = require('ejs')
 const query = require('../utils/mysqldb')
 
 const signup = async (user) => {
@@ -18,8 +19,24 @@ const login = async (id, passwd) => {
     return result[0]
 }
 
+const editUser = async (avatarName, userName, useremail, id) => {
+    try {
+        if (avatarName) {
+            return await query('update users set name = ?, email = ?, avatar =? where id = ?', [userName, useremail, avatarName, id])
+
+        } else {
+            return await query('update users set name = ?, email = ?where id = ?', [userName, useremail, id])
+        }
+    } catch(e) {
+        console.log(e)
+        return false
+    }
+
+}
+
 module.exports = {
     signup,
     findUser,
     login,
+    editUser
 }

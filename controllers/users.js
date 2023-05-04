@@ -57,7 +57,30 @@ const login = async (req, res, next) => {
     }
 }
 
+const editUser = async (req, res) => {
+    res.header('content-type', 'application/json; charset=UTF-8')
+    const avatar = req.savefilename
+    const {username, useremail, id} = req.body
+    console.log("username:", username)
+    console.log("useremail:", useremail)
+    console.log("userid:", id)
+    const result = await usersModel.editUser(avatar, username, useremail, id)
+    if (result && (result.affectedRows > 0)) {
+        res.render('succ', {
+            data: JSON.stringify("")
+        })
+    } else {
+        
+        res.render('fail', {
+            data: JSON.stringify("")
+        })
+    }
+
+
+}
+
 module.exports = {
     signup,
     login,
+    editUser
 }
