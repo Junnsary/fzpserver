@@ -14,7 +14,11 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         // console.log(file.mimetype)
         const ext = mime.getExtension(file.mimetype)
-        uploadFileName = `${file.fieldname}-${Date.now()}.${ext}`
+        if (ext) {
+            uploadFileName = `${file.fieldname}-${Date.now()}.${ext}`
+        } else {
+            uploadFileName = `${file.fieldname}-${Date.now()}`
+        }
         // console.log(fn)
         cb(null, uploadFileName)
     },

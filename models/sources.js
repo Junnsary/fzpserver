@@ -79,14 +79,18 @@ const quantity = async () => {
      * 查询 发布的文章和视频数量
      * 用户的数量
      */
-    const article = (await query('select count(*) as num from articles'))[0]
-    const video = (await query('select count(*) as num from videos'))[0]
-    const user = (await query('select count(*) as num from users'))[0]
+    const article = (await query('select count(*) as num from articles where status ="normal"'))[0]
+    const video = (await query('select count(*) as num from videos  where status ="normal"'))[0]
+    const user = (await query('select count(*) as num from users '))[0]
+    const question = (await query('select count(*) as num from questions  where status ="normal"'))[0]
+    const test = (await query('select count(*) as num from topics  where status ="normal"'))[0]
     // console.log(articleSum)
     return {
         article: article.num,
         video: video.num,
         user: user.num,
+        question: question.num,
+        topic: test.num
     }
 }
 

@@ -66,9 +66,15 @@ const editUser = async (req, res) => {
     console.log("userid:", id)
     const result = await usersModel.editUser(avatar, username, useremail, id)
     if (result && (result.affectedRows > 0)) {
-        res.render('succ', {
-            data: JSON.stringify("")
-        })
+        if (avatar) {
+            res.render('succ', {
+                data: JSON.stringify(avatar)
+            })
+        } else {
+            res.render('succ', {
+                data: JSON.stringify("")
+            })
+        }
     } else {
         
         res.render('fail', {
