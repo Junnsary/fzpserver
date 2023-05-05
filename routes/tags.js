@@ -1,6 +1,9 @@
 var express = require('express')
-var { category, knowledge, list, add, delTag } = require('../controllers/tags')
+var { category, knowledge, list, add, delTag,typecategory } = require('../controllers/tags')
 var router = express.Router()
+
+//user - 获取标签的type、gategory
+router.get('/:type/:category', typecategory)
 
 //user - 获取标签的type、gategory
 router.get('/typecategory', category)

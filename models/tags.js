@@ -5,11 +5,7 @@ const findTag = async (type) => {
 }
 
 const findCategory = async (type, category) => {
-    if (type) {
-        return await query(`select * from tags where type = ? and category = ?`, [type, category])
-    } else {
-        return await query(`select * from tags where category = ?`, [category])
-    }
+    return await query(`select * from tags where type = ? and category = ?`, [type, category])
 }
 
 const knowledge = async () => {
