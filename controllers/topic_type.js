@@ -28,7 +28,7 @@ exports.add = async (req, res) => {
 exports.del = async (req, res) => {
     res.header('content-type', 'application/json; charset=UTF-8')
     const { id } = req.body
-    const result = await topicTypeModel.del(id)
+    const result = await topicTypeModel.del(~~id)
     if (result) {
         res.render('succ', {
             data: JSON.stringify(''),

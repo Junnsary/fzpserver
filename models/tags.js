@@ -57,7 +57,9 @@ const add = async (category, type, name) => {
 }
 
 const delTag = async (id) => {
-    return await query('delete from tags where id = ?', [id])
+    const result = await query('delete from tags where id = ?', [id])
+    // await query('update ')
+    return 
 }
 
 module.exports = {

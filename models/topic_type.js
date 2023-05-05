@@ -19,7 +19,9 @@ exports.add = async (name, describe) => {
 
 exports.del = async (id) => {
     try {
-        const reuslt = await query('delete from topic_type where id = ?', [id])
+        const reuslt = await query(`delete from topic_type where id = ${id}`)
+        await query(`delete from topics where topic_type_id = ${id}`)
+        console.log(reuslt)
         return reuslt
     } catch (e) {
         console.log(e)
