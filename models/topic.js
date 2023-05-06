@@ -31,14 +31,14 @@ exports.list = async (size, page) => {
             size,
             size * (page - 1),
         ])
-        const topicTotal = await query('select * from  topics where  status ="normal"')
+        const topicTotal = await query('select * from  topics where  status ="normal" order by id ')
         for (const temp of topic) {
             const topicType = await query('select * from topic_type where id = ?', [
                 temp.topic_type_id,
             ])
             delete temp.topic_type_id
             temp.topic_type = topicType[0]
-            const solutions = await query('select * from solutions where topic_id = ?', [temp.id])
+            const solutions = await query('select * from solutions where topic_id = ? order by letter_num', [temp.id])
             result.push({
                 topic: temp,
                 solutions,
