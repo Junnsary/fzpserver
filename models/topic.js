@@ -73,7 +73,7 @@ exports.startTest = async () => {
             ])
             delete t.topic_type_id
             t.topic_type = topic_type[0]
-            const solutions = await query('select * from solutions where topic_id = ?', [t.id])
+            const solutions = await query('select * from solutions where topic_id = ? order by letter_num', [t.id])
             result.push({
                 topic: t,
                 solutions,
