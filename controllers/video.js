@@ -20,6 +20,11 @@ const postVideo = async (req, res, next) => {
     const { title, tagid, managerid } = req.body
     const videoName = req.VideoName
     const cover = req.coverImageName
+    console.log("title:", title)
+    console.log("tagid:", tagid)
+    console.log("managerid:", managerid)
+    console.log("videoname:", videoName)
+    console.log("cover:", cover)
     const result = await videoModel.postVideo(title, tagid, managerid, videoName, cover)
     if (result.affectedRows > 0) {
         res.render('succ', {

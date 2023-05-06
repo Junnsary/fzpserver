@@ -32,7 +32,7 @@ const storage = multer.diskStorage({
 //设置文件大小和文件数量
 const limits = {
     fileSize: 1024 * 1024 * 1000,
-    files: 2,
+    files: 4,
 }
 
 //设置文件类型

@@ -4,9 +4,9 @@ const sqlSelect = require('../utils/sql-select')
 const list = async (type, tagid) => {
     let result
     if (type == 'article') {
-        result = await query(`select * from articles where tag_id in (${tagid})`)
+        result = await query(`select * from articles where tag_id in (${tagid}) order by id desc`)
     } else {
-        result = await query(`select * from videos where tag_id in (${tagid}) `)
+        result = await query(`select * from videos where tag_id in (${tagid})  order by id desc`)
     }
     for (let t of result) {
         const manager = await query('select id, name from managers where id = ?', [t.manager_id])
