@@ -41,7 +41,7 @@ const allQuestion = async (pagesize, currentpage, review) => {
         `select * from questions where status = 'normal' and review in (${review}) LIMIT ? offset ?`,
         [pagesize, pagesize * (currentpage - 1)]
     )
-    const total = await query('select count(*) as total from questions where status = "normal" ')
+    const total = await query(`select count(*) as total from questions where status = "normal" and  review in (${review}) `)
     return { articleList: result, total: total[0].total }
 }
 
