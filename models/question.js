@@ -15,7 +15,7 @@ const questionList = async (userId, review) => {
         )
     } else {
         result = await query(
-            'select * from questions where user_id = ? and review = ?  and status = "normal" ',
+            'select * from questions where user_id = ? and review = ?  and status = "normal" order by id desc ',
             [userId, review]
         )
     }

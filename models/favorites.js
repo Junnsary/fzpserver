@@ -4,7 +4,7 @@ const selectUtils = require('../utils/sql-select')
 
 const list = async (userid) => {
     //获取收藏的列表
-    const all = await query('select * from favorites where user_id = ?', [userid])
+    const all = await query('select * from favorites where user_id = ? order by id desc', [userid])
     const articles = []
     const videos = []
     for (const Favorites of all) {

@@ -84,5 +84,5 @@ exports.testResult = async (usertopicid) => {
 }
 
 exports.userTopicList = async (userId) => {
-    return await query('select * from user_topics where user_id = ?', [userId])
+    return await query('select * from user_topics where user_id = ? order by id desc', [userId])
 }
