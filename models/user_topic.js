@@ -13,7 +13,7 @@ const countTopics = (topics) => {
                     sum += 1
                     temp.topic.right = 1
                     goodArr.push(temp)
-                } else {
+                } else { 
                     temp.topic.right = 0
                     errorArr.push(temp)
                 }
