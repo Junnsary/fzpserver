@@ -38,13 +38,13 @@ const countSuggestion = (count) => {
         return Array.from(errorSet)
             .filter((v) => typeof v === 'string')
             .map((item) => item + '|')
-            .join()
+            .join('')
     }
 }
 
 exports.submitUserTopic = async (topics, userId) => {
     try {
-        /**
+        /**g
          * 要算出分数，和给出建议,用户ID
          * 分数：
          * 1. 一共的题目数量、100分，总分/数量，算出一题多少分
