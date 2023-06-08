@@ -37,8 +37,7 @@ const countSuggestion = (count) => {
         // console.log(errorSet)
         return Array.from(errorSet)
             .filter((v) => typeof v === 'string')
-            .map((item) => item + '|')
-            .join('')
+            .join()
     }
 }
 
