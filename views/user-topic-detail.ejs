@@ -269,7 +269,7 @@
                             const uc = body.data.userChoose
 
                             if (ut.score !== 100) {
-                                ut.suggestion = ut.suggestion.split("|")
+                                ut.suggestion = ut.suggestion.split(",")
                                 ut.suggestion.pop()
                             }
                             ut.created_at = this.formatDate(new Date(ut.created_at), "yyyy-MM-dd hh:mm")
