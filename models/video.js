@@ -16,7 +16,7 @@ const list = async (tagId) => {
 }
 
 const video = async (id) => {
-    const result = await query('select * from videos where id = ?', [id])
+    const result = await query('select * from videos where id = ? and status = "normal"', [id])
     console.log(result)
     const video = result[0]
     const manager = await query('select id, name from managers  where id = ?', [video.manager_id])
@@ -52,6 +52,8 @@ const allVideo = async (pageSize, currentPage) => {
 const delVideo = async (id) => {
     const video = await query('select * from videos where id = ?', [id])
     const result = await query('delete from videos where id = ?', [id])
+    //删除收藏的内容
+    await query('delete from favorites where source_id = ? and tag_id = ?', [id, video[0].tag_id])
     return { deleResult: result, coverName: video[0] }
 }
 

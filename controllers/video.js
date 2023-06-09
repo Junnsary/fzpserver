@@ -61,6 +61,9 @@ const delVideo = async (req, res, next) => {
     deleteFile(path.resolve(__dirname, `../public/uploads/videos/${result.coverName.file_name}`))
     //删除封面
     deleteFile(path.resolve(__dirname, `../public/uploads/images/${result.coverName.cover}`))
+
+    
+
     if (result.deleResult.affectedRows > 0) {
         res.render('succ', {
             data: JSON.stringify({
