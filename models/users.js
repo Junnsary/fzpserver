@@ -23,9 +23,10 @@ const editUser = async (avatarName, userName, useremail, id) => {
     try {
         if (avatarName) {
             return await query('update users set name = ?, email = ?, avatar =? where id = ?', [userName, useremail, avatarName, id])
-
+            console.log("修改头像")
         } else {
-            return await query('update users set name = ?, email = ?where id = ?', [userName, useremail, id])
+            return await query('update users set name = ?, email = ? where id = ?', [userName, useremail, id])
+            console.log("没修改头像的")
         }
     } catch(e) {
         console.log(e)
